@@ -52,3 +52,24 @@
   - MySQL: Analytics aggregation and feedback (well-suited for reporting & structured data)
 
 ---
+
+## 🔒 Security & Best Practices
+
+- All authentication flows secured with JWT or OAuth  
+- Passwords hashed and user data protected  
+- RESTful API principles followed  
+- Concise code style with small variable names and minimal comments (aligned with programming preferences)[1]
+
+---
+
+## 🌟 Why TrackWise?
+
+- Combines NoSQL (MongoDB) and relational (MySQL) database skills  
+- Utilizes Node.js, Express, React, and REST API design best practices  
+- Portfolio-ready production-grade app—enhances DevOps, frontend, backend, and database expertise  
+- Practice with Git workflows and cloud deployment  
+
+---
+
+## 👨‍💻 Contributor
+[vidushish](https://github.com/vidushish)
