@@ -76,8 +76,4 @@
 Full-stack Developer | MERN | DSA   
 
 - 🔗 [GitHub](https://github.com/vidushish)  
-<<<<<<< HEAD
 - 🔗 [LinkedIn](https://linkedin.com/in/vidushi-sharma-8588aa2a7)
-=======
-- 🔗 [LinkedIn](https://linkedin.com/in/vidushi-sharma-8588aa2a7)
->>>>>>> 9070f87 (Made HomePage of TrackWise)
