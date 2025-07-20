@@ -24,22 +24,23 @@
 - **User Authentication**
   - Secure JWT or OAuth-powered login system
   - Personalized user dashboard and settings
+  - Passwords hashed securely
 
-- **Dual Database Integration (Advanced)**
+- **Database Integration (Advanced)**
   - MongoDB for storing user profiles, tasks, and habits (flexible, document-based)
-  - MySQL for analytics, reporting, and static feedback data (structured relational)
-  - Demonstrates full-stack, multi-database architecture
+  - MongoDB (Atlas) – Stores user profiles, tasks, and habits (flexible storage)
 
 ---
 
 ## 🛠️ Tech Stack
 
-| Frontend         | Backend         | Database         | Other        |
-|------------------|----------------|------------------|--------------|
-| React.js         | Node.js        | MongoDB          | JWT/OAuth    |
-| Material-UI      | Express.js     | MySQL            | Chart.js/Recharts |
-| React Router     | RESTful APIs   |                  | Git & GitHub |
-| Axios/Fetch      | Mongoose, Sequelize |           | Deployment platforms (Heroku/Netlify/AWS) |
+
+| Frontend                    | Backend        | Database              | Tools & Libraries                            |
+|----------------------------|----------------|------------------------|-----------------------------------------------|
+| React.js                   | Node.js        | MongoDB Atlas         | JWT for Authentication                        |
+| Tailwind CSS               | Express.js     | MySQL                 | Chart.js for Data Visualization               |
+| React Router               | RESTful APIs   |                        | Git & GitHub                                  |
+| Axios / Fetch API          |                |                        | Deployment: **Vercel** / **Render** / **Netlify** |
 
 ---
 
@@ -47,9 +48,8 @@
 
 - **Frontend**: Component-based UI with React.js, routing with React Router, visualizations using Chart.js or Recharts.
 - **Backend**: REST API with Express.js & Node.js, secure authentication (JWT/OAuth).
-- **Databases**:
+- **Database**:
   - MongoDB: User data, tasks, habits (highly flexible, ideal for rapid changes)
-  - MySQL: Analytics aggregation and feedback (well-suited for reporting & structured data)
 
 ---
 
@@ -64,12 +64,16 @@
 
 ## 🌟 Why TrackWise?
 
-- Combines NoSQL (MongoDB) and relational (MySQL) database skills  
-- Utilizes Node.js, Express, React, and REST API design best practices  
-- Portfolio-ready production-grade app—enhances DevOps, frontend, backend, and database expertise  
-- Practice with Git workflows and cloud deployment  
+- Showcases practical use of **MongoDB (NoSQL)** for flexible task and habit data storage  
+- Utilizes **Node.js**, **Express**, **React**, and **REST API** design best practices  
+- Portfolio-ready, production-grade app — strengthens DevOps, frontend, backend, and database expertise  
+- Encourages hands-on practice with **Git workflows** and **cloud deployment platforms**  
 
 ---
 
 ## 👨‍💻 Contributor
-[vidushish](https://github.com/vidushish)
+**Vidushi Sharma**  
+Full-stack Developer | MERN | DSA   
+
+- 🔗 [GitHub](https://github.com/vidushish)  
+- 🔗 [LinkedIn](https://linkedin.com/in/vidushi-sharma-8588aa2a7)
