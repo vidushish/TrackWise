@@ -1,6 +1,6 @@
 # TrackWise – Personal Task & Habit Tracker with Analytics
 
-**TrackWise** is a full-stack productivity web application to help users efficiently manage daily tasks, build positive habits, and monitor progress through data-driven analytics. Built with the MERN stack and MySQL integration, TrackWise is designed as an end-to-end showcase of modern web development, database management, and data visualization.
+**TrackWise** is a full-stack productivity web application to help users efficiently manage daily tasks, build positive habits, and monitor progress through data-driven analytics. Built with the MERN stack, TrackWise is designed as an end-to-end showcase of modern web development, database management, and data visualization.
 
 ---
 
@@ -76,4 +76,8 @@
 Full-stack Developer | MERN | DSA   
 
 - 🔗 [GitHub](https://github.com/vidushish)  
+<<<<<<< HEAD
 - 🔗 [LinkedIn](https://linkedin.com/in/vidushi-sharma-8588aa2a7)
+=======
+- 🔗 [LinkedIn](https://linkedin.com/in/vidushi-sharma-8588aa2a7)
+>>>>>>> 9070f87 (Made HomePage of TrackWise)
