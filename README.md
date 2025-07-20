@@ -37,8 +37,8 @@
 
 | Frontend                    | Backend        | Database              | Tools & Libraries                            |
 |----------------------------|----------------|------------------------|-----------------------------------------------|
-| React.js                   | Node.js        | MongoDB Atlas         | JWT for Authentication                        |
-| Tailwind CSS               | Express.js     | MySQL                 | Chart.js for Data Visualization               |
+| React.js                   | Node.js        | MongoDB         | JWT for Authentication                        |
+| Material-UI, Tailwind CSS               | Express.js     | MongoDB Atlas                  | Chart.js for Data Visualization               |
 | React Router               | RESTful APIs   |                        | Git & GitHub                                  |
 | Axios / Fetch API          |                |                        | Deployment: **Vercel** / **Render** / **Netlify** |
 
