@@ -13,13 +13,15 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import RunCircleTwoToneIcon from "@mui/icons-material/RunCircleTwoTone";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
+import { useNavigate } from "react-router-dom";
 
 const pages = ["Dashboard", "Add Task"];
-const settings = ["LogIn","SignUp"];
+const settings = ["LogIn", "SignUp"];
 
 export default function Navbar() {
 	const [anchorElNav, setAnchorElNav] = React.useState(null);
 	const [anchorElUser, setAnchorElUser] = React.useState(null);
+	const navigate = useNavigate();
 
 	const handleOpenNavMenu = (event) => {
 		setAnchorElNav(event.currentTarget);
@@ -39,7 +41,13 @@ export default function Navbar() {
 	return (
 		<AppBar
 			position="sticky"
-			sx={{ backgroundColor: "#351c4fff", mt: -2.5, borderRadius: "20px", boxShadow: 3 , overflow: "hidden" }}
+			sx={{
+				backgroundColor: "#351c4fff",
+				mt: -2.5,
+				borderRadius: "20px",
+				boxShadow: 3,
+				overflow: "hidden",
+			}}
 		>
 			<Container maxWidth="xl">
 				<Toolbar disableGutters>
@@ -183,7 +191,13 @@ export default function Navbar() {
 							{settings.map((setting) => (
 								<MenuItem
 									key={setting}
-									onClick={handleCloseUserMenu}
+									onClick={() => {
+										handleCloseUserMenu();
+										if (setting === "LogIn")
+											navigate("/login");
+										else if (setting === "SignUp")
+											navigate("/signup"); // optional
+									}}
 								>
 									<Typography sx={{ textAlign: "center" }}>
 										{setting}

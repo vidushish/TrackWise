@@ -19,13 +19,9 @@ export default function HomePage() {
 					<br />
 					<br />
 					<br />
-					<p className="tracking-wider  text-base/7 ">
-						Smart task and habit tracking powered by data-driven
-						insights.
-						<br />
-						TrackWise helps you stay organized, build consistent
-						habits, and understand your productivity with powerful
-						visual analytics — all from one intuitive dashboard.
+					<p className="text-lg tracking-wider  text-base/7 ">
+						From goals to habits, everything is trackable. <br /><br />
+Get clarity, stay consistent, and achieve more every day.
 					</p>
 				</div>
 				<div>

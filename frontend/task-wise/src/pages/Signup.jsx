@@ -1,4 +1,4 @@
-export default function Login() {
+export default function Signup() {
 	return (
 		<div className="ml-[-40px] mt-[-40px] mb-[-40px] flex justify-between">
 			<div>
@@ -13,10 +13,10 @@ export default function Login() {
 				/>
 			</div>
 			<div className="ml-[-2rem] mt-16">
-				<h1 className="text-4xl font-semibold">Welcome back!</h1><br />
+				<h1 className="text-4xl font-semibold">Create New Account!</h1><br />
 				<p className="tracking-wide text-lg">
-					Consistency starts here.
-Log in and stay on track with TrackWise.
+					Get started with TrackWise – Your journey to smarter
+					productivity begins here.
 				</p>{" "}
 			</div>
 		</div>

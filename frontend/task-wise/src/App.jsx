@@ -1,8 +1,14 @@
 import Navbar from "../src/components/Navbar";
 import Footer from "../src/components/Footer";
 import HomePage from "../src/pages/HomePage";
+import Login from "../src/pages/Login";
+import Signup from "../src/pages/Signup";
+import { Routes, Route, useLocation } from "react-router-dom";
 
 function App() {
+	const location = useLocation();
+	const hideLayout =
+    location.pathname === "/login" || location.pathname === "/signup";
 	return (
 		<>
 			<div className="min-h-screen w-full bg-white relative">
@@ -19,9 +25,24 @@ function App() {
 					}}
 				/>
 				<div className="relative z-10 text-black p-10">
-					<Navbar />
-					<HomePage/>
-					<Footer />
+					{!hideLayout && <Navbar />}
+
+					<Routes>
+						<Route
+							path="/"
+							element={<HomePage />}
+						/>
+						<Route
+							path="/login"
+							element={<Login />}
+						/>
+						<Route
+							path="/signup"
+							element={<Signup />}
+						/>
+					</Routes>
+
+					{!hideLayout && <Footer />}
 				</div>
 			</div>
 		</>
