@@ -11,19 +11,18 @@ function App() {
     location.pathname === "/login" || location.pathname === "/signup";
 	return (
 		<>
-			<div className="min-h-screen w-full bg-white relative">
-				<div
-					className="absolute inset-0 z-0"
-					style={{
-						background: "white",
-						backgroundImage: `
-       linear-gradient(to right, rgba(71,85,105,0.3) 1px, transparent 1px),
-       linear-gradient(to bottom, rgba(71,85,105,0.3) 1px, transparent 1px),
-       radial-gradient(circle at 50% 50%, rgba(139,92,246,0.25) 0%, rgba(139,92,246,0.1) 40%, transparent 80%)
-     `,
-						backgroundSize: "32px 32px, 32px 32px, 100% 100%",
-					}}
-				/>
+			<div className="min-h-screen w-full bg-[#fafafa] relative text-gray-900">
+    {/* Diagonal Grid with Light */}
+    <div
+      className="absolute inset-0 z-0 pointer-events-none"
+      style={{
+        backgroundImage: `
+          repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.1) 0, rgba(0, 0, 0, 0.1) 1px, transparent 1px, transparent 20px),
+        repeating-linear-gradient(-45deg, rgba(0, 0, 0, 0.1) 0, rgba(0, 0, 0, 0.1) 1px, transparent 1px, transparent 20px)
+        `,
+        backgroundSize: "40px 40px",
+      }}
+    />
 				<div className="relative z-10 text-black p-10">
 					{!hideLayout && <Navbar />}
 
