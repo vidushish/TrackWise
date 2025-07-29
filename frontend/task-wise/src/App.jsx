@@ -4,6 +4,8 @@ import HomePage from "../src/pages/HomePage";
 import Login from "../src/pages/Login";
 import Signup from "../src/pages/Signup";
 import AddTask from "../src/pages/AddTask";
+import Dashboard from "../src/pages/Dashboard";
+import Analytics from "../src/pages/Analytics";
 import { Routes, Route, useLocation } from "react-router-dom";
 
 function App() {
@@ -42,6 +44,14 @@ function App() {
 						<Route
 							path="/addtask"
 							element={<AddTask />}
+						/>
+						<Route
+							path="/dashboard"
+							element={<Dashboard />}
+						/>
+						<Route
+							path="/analytics"
+							element={<Analytics />}
 						/>
 					</Routes>
 

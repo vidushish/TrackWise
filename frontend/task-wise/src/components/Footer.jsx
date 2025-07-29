@@ -6,7 +6,7 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 
 export default function Footer() {
 	return (
-		<div className="absolute bottom-0 left-0 w-full bg-[#351c4fff] text-white py-3 px-6">
+		<div className="mb-0 absolute bottom-0 left-0 w-full bg-[#351c4fff] text-white py-3 px-6">
 			<div className="flex flex-col sm:flex-row items-center justify-between w-full max-w-7xl mx-auto space-y-4 sm:space-y-0">
 				
 				<div className="flex space-x-3">

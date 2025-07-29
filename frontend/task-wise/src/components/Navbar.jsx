@@ -15,7 +15,7 @@ import RunCircleTwoToneIcon from "@mui/icons-material/RunCircleTwoTone";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import { useNavigate } from "react-router-dom";
 
-const pages = ["Dashboard", "Add Task"];
+const pages = ["Dashboard", "Add Task","Analytics"];
 const settings = ["LogIn", "SignUp"];
 
 export default function Navbar() {
@@ -58,7 +58,7 @@ export default function Navbar() {
 						variant="h6"
 						noWrap
 						component="a"
-						href="#app-bar-with-responsive-menu"
+						href="/"
 						sx={{
 							mr: 2,
 							display: { xs: "none", md: "flex" },
@@ -105,14 +105,24 @@ export default function Navbar() {
 							sx={{ display: { xs: "block", md: "none" } }}
 						>
 							{pages.map((page) => (
-								<MenuItem
+								<Button
 									key={page}
-									onClick={handleCloseNavMenu}
+									onClick={() => {
+										handleCloseNavMenu();
+										if (page === "Dashboard") navigate("/dashboard");
+										else if (page === "Add Task")
+											navigate("/addtask");
+										else if (page === "Analytics")
+											navigate("/analytics");
+									}}
+									sx={{
+										my: 2,
+										color: "black",
+										display: "block",
+									}}
 								>
-									<Typography sx={{ textAlign: "center" }}>
-										{page}
-									</Typography>
-								</MenuItem>
+									{page}
+								</Button>
 							))}
 						</Menu>
 					</Box>
@@ -123,7 +133,7 @@ export default function Navbar() {
 						variant="h5"
 						noWrap
 						component="a"
-						href="#app-bar-with-responsive-menu"
+						href="/"
 						sx={{
 							mr: 2,
 							display: { xs: "flex", md: "none" },
@@ -146,7 +156,14 @@ export default function Navbar() {
 						{pages.map((page) => (
 							<Button
 								key={page}
-								onClick={handleCloseNavMenu}
+								onClick={() => {
+									handleCloseNavMenu();
+									if (page === "Dashboard") navigate("/dashboard");
+									else if (page === "Add Task")
+										navigate("/addtask");
+									else if (page === "Analytics")
+										navigate("/analytics");
+								}}
 								sx={{ my: 2, color: "white", display: "block" }}
 							>
 								{page}
@@ -196,7 +213,7 @@ export default function Navbar() {
 										if (setting === "LogIn")
 											navigate("/login");
 										else if (setting === "SignUp")
-											navigate("/signup"); // optional
+											navigate("/signup");
 									}}
 								>
 									<Typography sx={{ textAlign: "center" }}>
