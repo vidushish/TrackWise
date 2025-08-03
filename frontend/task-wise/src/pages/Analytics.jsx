@@ -1,16 +1,13 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function Analytics() {
-	const navigate = useNavigate();
 	const [tasks, setTasks] = useState([]);
 
 	useEffect(() => {
 		const token = localStorage.getItem("token");
 		if (!token) {
 			localStorage.setItem("redirectAfterLogin", "/analytics");
-			navigate("/login");
 			return;
 		}
 
@@ -25,12 +22,11 @@ export default function Analytics() {
 			} catch (err) {
 				console.error("Error:", err);
 				localStorage.removeItem("token");
-				navigate("/login");
 			}
 		};
 
 		fetchTasks();
-	}, [navigate]);
+	},[]);
 
 	return (
 		<div>

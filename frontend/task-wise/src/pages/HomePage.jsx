@@ -7,12 +7,10 @@ import "aos/dist/aos.css";
 import { useEffect } from "react";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 
 import CardActionArea from "@mui/material/CardActionArea";
 
 export default function HomePage() {
-	const navigate = useNavigate();
 
 	useEffect(() => {
 		AOS.init({

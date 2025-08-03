@@ -1,27 +1,28 @@
 const express = require("express");
 const app = express();
 const router = require("./router/auth-router.js");
-const mongoose = require("mongoose");
-const dotenv = require("dotenv");
+const connectDb = require("./utils/db.js");
+const errorMiddleware = require("./middlewares/error-middleware.js")
+const cors = require("cors");
 
-dotenv.config();
+const corsOptions = {
+	origin:"http://localhost:5173",
+	methods:"GET, POST, PUT, DELETE, PATCH, HEAD",
+	credentials:true,
+}
+
+app.use(cors(corsOptions));
+
 app.use(express.json());
 
-const cors = require("cors");
-app.use(cors());
-
-mongoose
-	.connect(process.env.MONGO_URI)
-	.then(() => console.log("MongoDB connected"))
-	.catch((err) => console.log("Connection error:", err));
-
-require("./models/user");
-require("./models/task");
-require("./models/review");
 
 app.use("/api/auth", router);
 
+app.use(errorMiddleware);
+
 const PORT = process.env.PORT || 5174;
-app.listen(PORT, () => {
-	console.log(`Server is running on port ${PORT}`);
+connectDb().then(() => {
+	app.listen(PORT, () => {
+		console.log(`Server is running on port ${PORT}`);
+	});
 });

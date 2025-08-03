@@ -1,8 +1,51 @@
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import  {useNavigate} from "react-router-dom";
+
+const URL="http://localhost:5174/api/auth/signup";
 
 export default function Signup() {
+	const [user, setUser] = useState({
+		name: "",
+		email: "",
+		password: "",
+	});
+
 	const navigate = useNavigate();
+
+	const handleInput = (event) => {
+		console.log(event);
+		let name = event.target.name;
+		let value = event.target.value;
+
+		setUser({
+			...user,
+			[name]: value,
+		});
+	};
+
+	const handleSubmit = async (event) => {
+		event.preventDefault();
+		console.log(user);
+		try {
+			const response = await fetch(
+				URL,
+				{
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify(user),
+				}
+			);
+			if (response.ok) {
+				setUser({ name: "", email: "", password: "" });
+				navigate("/");
+			}
+			console.log(response);
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
 	return (
 		<div className="min-h-screen flex  mt-[-40px] mb-[-40px]">
 			<div className="hidden sm:block w-1/2">
@@ -26,21 +69,33 @@ export default function Signup() {
 						</p>
 					</div>
 
-					<form className="space-y-4">
+					<form
+						onSubmit={handleSubmit}
+						className="space-y-4"
+					>
 						<input
 							type="text"
+							name="name"
 							placeholder="Enter your name"
 							className="w-full px-4 py-2 border border-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
+							value={user.name}
+							onChange={handleInput}
 						/>
 						<input
 							type="email"
+							name="email"
 							placeholder="name@email.com"
 							className="w-full px-4 py-2 border border-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
+							value={user.email}
+							onChange={handleInput}
 						/>
 						<input
 							type="password"
+							name="password"
 							placeholder="Password"
 							className="w-full px-4 py-2 border border-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
+							value={user.password}
+							onChange={handleInput}
 						/>
 
 						<div className="flex items-center justify-between text-sm">
@@ -56,10 +111,6 @@ export default function Signup() {
 						<button
 							type="submit"
 							className="w-full bg-black text-white py-2 rounded-md hover:bg-gray-800"
-							onClick={(e) => {
-								e.preventDefault();
-								navigate("/");
-							}}
 						>
 							Sign Up
 						</button>

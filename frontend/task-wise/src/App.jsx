@@ -6,24 +6,13 @@ import Signup from "../src/pages/Signup";
 import AddTask from "../src/pages/AddTask";
 import Dashboard from "../src/pages/Dashboard";
 import Analytics from "../src/pages/Analytics";
+import NotFound from "../src/pages/NotFound";
 import { Routes, Route, useLocation } from "react-router-dom";
-import { Axios } from "axios";
-import { useState, useEffect } from "react";
+
 function App() {
 	const location = useLocation();
 	const hideLayout =
 		location.pathname === "/login" || location.pathname === "/signup";
-	
-	const [data,setData]=useState();
-
-	const getData = async()=>{
-		const response = await Axios.get("https://localhost:5174/getData");
-		setData(response.data);
-	}
-
-	useEffect(()=>{
-		getData();
-	},[]);
 
 	return (
 		<>
@@ -65,6 +54,10 @@ function App() {
 						<Route
 							path="/analytics"
 							element={<Analytics />}
+						/>
+						<Route
+							path="*"
+							element={<NotFound />}
 						/>
 					</Routes>
 
