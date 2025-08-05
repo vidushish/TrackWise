@@ -1,5 +1,4 @@
 const User = require("../models/user.js");
-const bcrypt = require("bcryptjs");
 
 const home = async (req, res) => {
 	try {
@@ -55,4 +54,13 @@ const login = async (req, res) => {
 	}
 };
 
-module.exports = { home, signup, login };
+const user = async (req, res) => {
+	try {
+		res.status(200).json({ user: req.user });
+	} catch (error) {
+		console.log(`Error from the user route ${error}`);
+		res.status(500).json({ message: "Internal server error" });
+	}
+};
+
+module.exports = { home, signup, login, user };

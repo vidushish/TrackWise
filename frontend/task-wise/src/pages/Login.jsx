@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
-import  {useNavigate} from "react-router-dom";
+import { useState,useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../store/auth";
 
 const URL = "http://localhost:5174/api/auth/login";
 
@@ -10,6 +11,12 @@ export default function LoginPage() {
 		password: "",
 	});
 
+	const { storeTokenInLS, isLoggedIn } = useAuth();
+	useEffect(() => {
+		if (isLoggedIn) {
+			navigate("/dashboard");
+		}
+	}, [isLoggedIn]);
 	const navigate = useNavigate();
 
 	const handleInput = (event) => {
@@ -27,14 +34,16 @@ export default function LoginPage() {
 		console.log(user);
 		try {
 			const response = await fetch(URL, {
-				methods: "POST",
+				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(user),
 			});
 			if (response.ok) {
+				const res_data = await response.json();
+				storeTokenInLS(res_data.token);
 				setUser({ email: "", password: "" });
 				navigate("/");
-			}else{
+			} else {
 				alert("Invalid credentials!");
 			}
 			console.log(response);

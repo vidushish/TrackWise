@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import { useState } from "react";
-import  {useNavigate} from "react-router-dom";
+import { useAuth } from "../store/auth";
 
-const URL="http://localhost:5174/api/auth/signup";
+const URL = "http://localhost:5174/api/auth/signup";
 
 export default function Signup() {
 	const [user, setUser] = useState({
@@ -12,6 +12,8 @@ export default function Signup() {
 	});
 
 	const navigate = useNavigate();
+
+	const {storeTokenInLS} = useAuth();
 
 	const handleInput = (event) => {
 		console.log(event);
@@ -28,15 +30,15 @@ export default function Signup() {
 		event.preventDefault();
 		console.log(user);
 		try {
-			const response = await fetch(
-				URL,
-				{
-					method: "POST",
-					headers: { "Content-Type": "application/json" },
-					body: JSON.stringify(user),
-				}
-			);
+			const response = await fetch(URL, {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify(user),
+			});
 			if (response.ok) {
+				const res_data = await response.json();;
+				console.log("Response from server", res_data);
+				storeTokenInLS(res_data.token);
 				setUser({ name: "", email: "", password: "" });
 				navigate("/");
 			}

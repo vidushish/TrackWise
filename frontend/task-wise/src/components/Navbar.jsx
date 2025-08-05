@@ -13,10 +13,11 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import RunCircleTwoToneIcon from "@mui/icons-material/RunCircleTwoTone";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
+import { useAuth } from "../store/auth";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const pages = ["Dashboard", "Add Task","Analytics"];
-const settings = ["LogIn", "SignUp"];
+const pages = ["Dashboard", "Add Task", "Analytics"];
 
 export default function Navbar() {
 	const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -37,6 +38,33 @@ export default function Navbar() {
 	const handleCloseUserMenu = () => {
 		setAnchorElUser(null);
 	};
+
+	const { isLoggedIn, token, LogoutUser } = useAuth();
+	const [userData, setUserData] = useState(null);
+
+	useEffect(() => {
+		const fetchUser = async () => {
+			if (!token) return;
+
+			try {
+				const URL = "http://localhost:5174/api/auth/user";
+				const res = await fetch(URL, {
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${token}`,
+					},
+				});
+
+				const data = await res.json();
+				setUserData(data.user);
+			} catch (err) {
+				console.log("Failed to fetch user", err);
+			}
+		};
+
+		fetchUser();
+	}, [token]);
 
 	return (
 		<AppBar
@@ -109,7 +137,8 @@ export default function Navbar() {
 									key={page}
 									onClick={() => {
 										handleCloseNavMenu();
-										if (page === "Dashboard") navigate("/dashboard");
+										if (page === "Dashboard")
+											navigate("/dashboard");
 										else if (page === "Add Task")
 											navigate("/addtask");
 										else if (page === "Analytics")
@@ -158,7 +187,8 @@ export default function Navbar() {
 								key={page}
 								onClick={() => {
 									handleCloseNavMenu();
-									if (page === "Dashboard") navigate("/dashboard");
+									if (page === "Dashboard")
+										navigate("/dashboard");
 									else if (page === "Add Task")
 										navigate("/addtask");
 									else if (page === "Analytics")
@@ -205,22 +235,50 @@ export default function Navbar() {
 							open={Boolean(anchorElUser)}
 							onClose={handleCloseUserMenu}
 						>
-							{settings.map((setting) => (
+							{isLoggedIn ? (
 								<MenuItem
-									key={setting}
+									key="logout"
 									onClick={() => {
 										handleCloseUserMenu();
-										if (setting === "LogIn")
-											navigate("/login");
-										else if (setting === "SignUp")
-											navigate("/signup");
+										LogoutUser();
+										navigate("/");
 									}}
 								>
 									<Typography sx={{ textAlign: "center" }}>
-										{setting}
+										Logout
 									</Typography>
 								</MenuItem>
-							))}
+							) : (
+								[
+									<MenuItem
+										key="login"
+										onClick={() => {
+											handleCloseUserMenu();
+											navigate("/login");
+										}}
+									>
+										<Typography
+											sx={{ textAlign: "center" }}
+										>
+											Log In
+										</Typography>
+									</MenuItem>,
+
+									<MenuItem
+										key="signup"
+										onClick={() => {
+											handleCloseUserMenu();
+											navigate("/signup");
+										}}
+									>
+										<Typography
+											sx={{ textAlign: "center" }}
+										>
+											Sign Up
+										</Typography>
+									</MenuItem>,
+								]
+							)}
 						</Menu>
 					</Box>
 				</Toolbar>

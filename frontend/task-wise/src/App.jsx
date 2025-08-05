@@ -7,7 +7,9 @@ import AddTask from "../src/pages/AddTask";
 import Dashboard from "../src/pages/Dashboard";
 import Analytics from "../src/pages/Analytics";
 import NotFound from "../src/pages/NotFound";
+import Logout from "../src/pages/logout";
 import { Routes, Route, useLocation } from "react-router-dom";
+import { useAuth } from "./store/auth.jsx";
 
 function App() {
 	const location = useLocation();
@@ -58,6 +60,10 @@ function App() {
 						<Route
 							path="*"
 							element={<NotFound />}
+						/>
+						<Route
+							path="/logout"
+							element={<Logout />}
 						/>
 					</Routes>
 

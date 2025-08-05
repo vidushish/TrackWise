@@ -13,7 +13,7 @@ export default function Analytics() {
 
 		const fetchTasks = async () => {
 			try {
-				const res = await axios.get("http://localhost:5174/tasks", {
+				const res = await axios.get("http://localhost:5174/addtask", {
 					headers: {
 						Authorization: `Bearer ${token}`,
 					},
