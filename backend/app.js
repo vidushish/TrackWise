@@ -4,6 +4,7 @@ const router = require("./router/auth-router.js");
 const connectDb = require("./utils/db.js");
 const errorMiddleware = require("./middlewares/error-middleware.js")
 const cors = require("cors");
+const taskRouter = require("./router/task-router.js");
 
 const corsOptions = {
 	origin:"http://localhost:5173",
@@ -17,6 +18,7 @@ app.use(express.json());
 
 
 app.use("/api/auth", router);
+app.use("/api/data", taskRouter);
 
 app.use(errorMiddleware);
 

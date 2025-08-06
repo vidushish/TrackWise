@@ -5,12 +5,25 @@ import Button from "@mui/material/Button";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import TextField from "@mui/material/TextField";
 
 export default function AddTask() {
+	const [title, setTitle] = useState("");
+	const [description, setDescription] = useState("");
+	const [dueDate, setDueDate] = useState("");
 	const [category, setCategory] = useState("");
+	const [priority, setPriority] = useState("");
 
-	const handleCategoryChange = (event) => {
-		setCategory(event.target.value);
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		const taskData = {
+			title,
+			description,
+			dueDate,
+			category,
+			priority: Number(priority),
+		};
+		console.log("Submitted Task:", taskData);
 	};
 	return (
 		<div className="mt-12 text-center">
@@ -19,31 +32,64 @@ export default function AddTask() {
 			</h1>
 			<br />
 			<br />
-			<form className="text-lg">
-				<label htmlFor="standard-required">
+			<form
+				className="text-lg"
+				onSubmit={handleSubmit}
+			>
+				<label
+					className="text-xl font-semibold"
+					htmlFor="standard-required"
+				>
 					Task Title :&nbsp;&nbsp;&nbsp;
 				</label>
 				<input
 					type="text"
+					value={title}
+					onChange={(e) => setTitle(e.target.value)}
 					placeholder="Enter Title"
 					className="px-4 py-2 border border-gray-900 rounded-md focus:outline-none focus:ring-1 focus:ring-black"
 				/>
 				<br />
 				<br />
-				<label htmlFor="dueDate">Due Date : &nbsp;&nbsp;&nbsp;</label>
-				<input
-					type="date"
-					id="dueDate"
+				<label
+					className="text-xl font-semibold"
+					htmlFor="outlined-textarea"
+				>
+					Description : &nbsp;&nbsp;&nbsp;
+				</label>
+				<TextField
+					id="outlined-textarea"
+					placeholder="Add details..."
+					multiline
+					value={description}
+					onChange={(e) => setDescription(e.target.value)}
 				/>
 				<br />
 				<br />
-				<label htmlFor="demo-simple-select">
+				<label
+					className="text-xl font-semibold"
+					htmlFor="dueDate"
+				>
+					Due Date : &nbsp;&nbsp;&nbsp;
+				</label>
+				<input
+					type="date"
+					id="dueDate"
+					value={dueDate}
+					onChange={(e) => setDueDate(e.target.value)}
+				/>
+				<br />
+				<br />
+				<label
+					className="text-xl font-semibold"
+					htmlFor="demo-simple-select"
+				>
 					Category :&nbsp;&nbsp;&nbsp;
 				</label>
 				<Select
 					id="demo-simple-select"
 					value={category}
-					onChange={handleCategoryChange}
+					onChange={(e) => setCategory(e.target.value)}
 					displayEmpty
 					sx={{ width: 200 }}
 				>
@@ -62,13 +108,18 @@ export default function AddTask() {
 				<br />
 				<br />
 				<div className="flex flex-row items-center justify-center mt-4">
-					<label htmlFor="priority">
+					<label
+						className="text-xl font-semibold"
+						htmlFor="priority"
+					>
 						Priority : &nbsp;&nbsp;&nbsp;
 					</label>
 					<RadioGroup
 						row
 						aria-labelledby="demo-row-radio-buttons-group-label"
 						name="row-radio-buttons-group"
+						value={priority}
+						onChange={(e) => setPriority(e.target.value)}
 					>
 						<FormControlLabel
 							value="1"
@@ -90,8 +141,12 @@ export default function AddTask() {
 				<br />
 				<br />
 				<Button
+					type="submit"
 					sx={{
-						backgroundColor: "#873ccdff",
+						backgroundColor: "#651fa5ff",
+						width: "10rem",
+						height: "3rem",
+						fontSize: "1rem",
 						transition: "all 0.3s ease-in-out",
 						"&:hover": {
 							backgroundColor: "#6b22a2ff",

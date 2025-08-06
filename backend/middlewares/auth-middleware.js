@@ -14,6 +14,8 @@ const authMiddleware = async (req, res, next) => {
 
 	const token = tokenHeader.split(" ")[1];
 
+	// const jwtToken = token.replace("Bearer","").trim();
+
 	try {
 		const decoded = jwt.verify(token, process.env.JWT_SECRET);
 		const user = await User.findById(decoded.userId).select("-password");
@@ -23,6 +25,8 @@ const authMiddleware = async (req, res, next) => {
 		}
 
 		req.user = user;
+		req.token=token;
+		req.userId=user._id;
 		next();
 	} catch (error) {
 		console.error("Error verifying token:", error.message);

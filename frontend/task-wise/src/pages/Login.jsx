@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../store/auth";
+import { toast } from 'react-toastify';
 
 const URL = "http://localhost:5174/api/auth/login";
 
@@ -38,13 +39,14 @@ export default function LoginPage() {
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(user),
 			});
+			const res_data = await response.json();
 			if (response.ok) {
-				const res_data = await response.json();
 				storeTokenInLS(res_data.token);
 				setUser({ email: "", password: "" });
+				toast.success("Login Successful");
 				navigate("/");
 			} else {
-				alert("Invalid credentials!");
+				toast.error(res_data.extraDetails);
 			}
 			console.log(response);
 		} catch (error) {

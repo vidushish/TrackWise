@@ -1,6 +1,7 @@
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useAuth } from "../store/auth";
+import { toast } from 'react-toastify';
 
 const URL = "http://localhost:5174/api/auth/signup";
 
@@ -13,7 +14,7 @@ export default function Signup() {
 
 	const navigate = useNavigate();
 
-	const {storeTokenInLS} = useAuth();
+	const { storeTokenInLS } = useAuth();
 
 	const handleInput = (event) => {
 		console.log(event);
@@ -35,14 +36,16 @@ export default function Signup() {
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(user),
 			});
+			const res_data = await response.json();
+			console.log("Response from server", res_data);
 			if (response.ok) {
-				const res_data = await response.json();;
-				console.log("Response from server", res_data);
 				storeTokenInLS(res_data.token);
 				setUser({ name: "", email: "", password: "" });
+				toast.success("Signup Successful");
 				navigate("/");
+			}else{
+				toast.error(res_data.message);
 			}
-			console.log(response);
 		} catch (err) {
 			console.log(err);
 		}

@@ -10,20 +10,23 @@ const validateSignup = (req, res, next) => {
 		const password = req.body.password?.trim();
 
 		if (!name || name.length < 3 || name.length > 255) {
-			const error = new Error("Name must be 3-255 characters long.");
+			const error = new Error("Invalid name.");
 			error.status = 400;
+			error.extraDetails = "Name must be 3-255 characters long.";
 			throw error;
 		}
 
 		if (!isValidEmail(email)) {
-			const error = new Error("Invalid email format.");
+			const error = new Error("Invalid email.");
 			error.status = 400;
+			error.extraDetails = "Email must be valid and under 100 characters.";
 			throw error;
 		}
 
 		if (!password || password.length < 8 || password.length > 128) {
-			const error = new Error("Password must be 8-128 characters long.");
+			const error = new Error("Invalid password.");
 			error.status = 400;
+			error.extraDetails = "Password must be 8-128 characters long.";
 			throw error;
 		}
 
@@ -40,14 +43,16 @@ const validateLogin = (req, res, next) => {
 		const password = req.body.password?.trim();
 
 		if (!isValidEmail(email)) {
-			const error = new Error("Invalid email format.");
+			const error = new Error("Invalid email.");
 			error.status = 400;
+			error.extraDetails = "Email must be valid and properly formatted.";
 			throw error;
 		}
 
 		if (!password || password.length < 8) {
-			const error = new Error("Password must be at least 8 characters.");
+			const error = new Error("Invalid password.");
 			error.status = 400;
+			error.extraDetails = "Password must be at least 8 characters.";
 			throw error;
 		}
 

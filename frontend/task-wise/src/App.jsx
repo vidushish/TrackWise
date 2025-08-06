@@ -9,6 +9,7 @@ import Analytics from "../src/pages/Analytics";
 import NotFound from "../src/pages/NotFound";
 import Logout from "../src/pages/logout";
 import { Routes, Route, useLocation } from "react-router-dom";
+import ProtectedRoute from "./components/ProtectedRoute";
 import { useAuth } from "./store/auth.jsx";
 
 function App() {
@@ -47,15 +48,27 @@ function App() {
 						/>
 						<Route
 							path="/addtask"
-							element={<AddTask />}
+							element={
+								<ProtectedRoute>
+									<AddTask />
+								</ProtectedRoute>
+							}
 						/>
 						<Route
 							path="/dashboard"
-							element={<Dashboard />}
+							element={
+								<ProtectedRoute>
+									<Dashboard />
+								</ProtectedRoute>
+							}
 						/>
 						<Route
 							path="/analytics"
-							element={<Analytics />}
+							element={
+								<ProtectedRoute>
+									<Analytics />
+								</ProtectedRoute>
+							}
 						/>
 						<Route
 							path="*"

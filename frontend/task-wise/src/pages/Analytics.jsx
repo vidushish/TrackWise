@@ -26,7 +26,7 @@ export default function Analytics() {
 		};
 
 		fetchTasks();
-	},[]);
+	}, []);
 
 	return (
 		<div>

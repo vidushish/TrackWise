@@ -11,7 +11,6 @@ import { Link } from "react-router-dom";
 import CardActionArea from "@mui/material/CardActionArea";
 
 export default function HomePage() {
-
 	useEffect(() => {
 		AOS.init({
 			duration: 1000,
