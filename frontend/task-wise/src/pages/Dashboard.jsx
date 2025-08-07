@@ -6,16 +6,37 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export default function Dashboard() {
 	const [tasks, setTasks] = useState([]);
+	const navigate = useNavigate();
 
+	useEffect(() => {
+		AOS.init({
+			duration: 1000,
+			once: true,
+		});
+	}, []);
 	useEffect(() => {
 		const fetchTasks = async () => {
 			try {
-				const URL = "http://localhost:5174/api/data/dashboard";
-				const res = await axios.get(URL);
-				setTasks(res.data.msg);
+				const token = localStorage.getItem("token");
+				const res = await axios.get(
+					"http://localhost:5174/api/data/dashboard",
+					{
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
+					}
+				);
+				const sortedTasks = res.data.msg.sort(
+					(a, b) => b.priority - a.priority
+				);
+				setTasks(sortedTasks);
 			} catch (err) {
 				console.error("Failed to fetch tasks:", err);
 			}
@@ -23,17 +44,42 @@ export default function Dashboard() {
 		fetchTasks();
 	}, []);
 
+	const handleDelete = async (id) => {
+		try {
+			const token = localStorage.getItem("token");
+			const URL = `http://localhost:5174/api/data/delete/${id}`;
+			const res = await axios.delete(URL, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			});
+
+			if (res.status === 200) {
+				setTasks((prev) => prev.filter((task) => task._id !== id));
+				toast.success("Task deleted successfully");
+			}
+		} catch (err) {
+			console.error("Failed to delete task:", err);
+		}
+	};
+
 	return (
 		<>
 			<br />
 			<br />
-			<h1 className="text-3xl text-center font-semibold">
+			<h1
+				data-aos="fade-up"
+				className="text-3xl text-center font-semibold"
+			>
 				Good to See You! Let's Crush Some Tasks
 			</h1>
 			<br />
 			<br />
 			<br />
-			<div className="grid gap-10 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 px-4 items-stretch">
+			<div
+				data-aos="zoom-in"
+				className="grid gap-10 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 px-4 items-stretch"
+			>
 				{tasks.map((task) => (
 					<Box
 						key={task._id}
@@ -73,7 +119,10 @@ export default function Dashboard() {
 										task.duedate
 									).toLocaleDateString()}
 								</Typography>
-								<Typography sx={{ fontSize: 15 }} variant="body2">
+								<Typography
+									sx={{ fontSize: 15 }}
+									variant="body2"
+								>
 									{task.description}
 								</Typography>
 								<Typography
@@ -83,16 +132,19 @@ export default function Dashboard() {
 								>
 									Priority:{" "}
 									{task.priority === 1
-										? "High"
+										? "Low"
 										: task.priority === 2
 										? "Medium"
-										: "Low"}
+										: "High"}
 								</Typography>
 							</CardContent>
 							<CardActions className="bg-purple-200 justify-between">
 								<Button
 									size="small"
 									sx={{ color: "#6b22a2" }}
+									onClick={() =>
+										navigate(`/edit/${task._id}`)
+									}
 								>
 									Edit
 								</Button>
@@ -105,6 +157,7 @@ export default function Dashboard() {
 								<Button
 									size="small"
 									sx={{ color: "#6b22a2" }}
+									onClick={() => handleDelete(task._id)}
 								>
 									Delete
 								</Button>

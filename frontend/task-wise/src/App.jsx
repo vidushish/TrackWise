@@ -10,7 +10,7 @@ import NotFound from "../src/pages/NotFound";
 import Logout from "../src/pages/logout";
 import { Routes, Route, useLocation } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
-import { useAuth } from "./store/auth.jsx";
+import EditTask from "./pages/EditTask";
 
 function App() {
 	const location = useLocation();
@@ -77,6 +77,10 @@ function App() {
 						<Route
 							path="/logout"
 							element={<Logout />}
+						/>
+						<Route
+							path="/edit/:id"
+							element={<EditTask />}
 						/>
 					</Routes>
 

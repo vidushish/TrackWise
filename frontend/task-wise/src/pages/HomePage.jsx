@@ -7,10 +7,11 @@ import "aos/dist/aos.css";
 import { useEffect } from "react";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 import CardActionArea from "@mui/material/CardActionArea";
 
 export default function HomePage() {
+	const navigate = useNavigate();
 	useEffect(() => {
 		AOS.init({
 			duration: 1000,
@@ -191,19 +192,23 @@ export default function HomePage() {
 					Loved for simplicity. Evolving every day.
 				</p>
 				<br />
-				<Button
-					sx={{
-						backgroundColor: "#873ccdff",
-						transition: "all 0.3s ease-in-out",
-						"&:hover": {
-							backgroundColor: "#6b22a2ff",
-							transform: "scale(1.05)",
-						},
-					}}
-					variant="contained"
-				>
-					Add new Review
-				</Button>
+				{localStorage.getItem("token") ? (
+					<Button
+						sx={{
+							backgroundColor: "#873ccdff",
+							transition: "all 0.3s ease-in-out",
+							"&:hover": {
+								backgroundColor: "#6b22a2ff",
+								transform: "scale(1.05)",
+							},
+						}}
+						variant="contained"
+					>
+						Add new Review
+					</Button>
+				) : (
+					navigate("/login")
+				)}
 			</div>
 			<br />
 			<br />

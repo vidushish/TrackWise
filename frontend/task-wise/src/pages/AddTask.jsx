@@ -6,6 +6,8 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import TextField from "@mui/material/TextField";
+import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
 
 export default function AddTask() {
 	const [title, setTitle] = useState("");
@@ -14,7 +16,9 @@ export default function AddTask() {
 	const [category, setCategory] = useState("");
 	const [priority, setPriority] = useState("");
 
-	const handleSubmit = (e) => {
+	const navigate = useNavigate();
+
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const taskData = {
 			title,
@@ -24,6 +28,34 @@ export default function AddTask() {
 			priority: Number(priority),
 		};
 		console.log("Submitted Task:", taskData);
+
+		try {
+			const token = localStorage.getItem("token");
+			const URL = "http://localhost:5174/api/data/addtask";
+			const res = await fetch(URL, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${token}`,
+				},
+				body: JSON.stringify(taskData),
+			});
+
+			if (!res.ok) throw new Error("Failed to add task");
+			const result = await res.json();
+			console.log("Task added successfully:", result);
+			toast.success("Task added successfully!");
+
+			setTitle("");
+			setDescription("");
+			setDueDate("");
+			setCategory("");
+			setPriority("");
+			navigate("/dashboard");
+		} catch (error) {
+			console.error("Error submitting task:", error);
+			toast.error("Error adding task.");
+		}
 	};
 	return (
 		<div className="mt-12 text-center">

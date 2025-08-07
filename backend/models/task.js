@@ -7,23 +7,24 @@ const taskSchema = new Schema({
 		type: String,
 		required: true,
 	},
-	description:{
-		type:String,
+	description: {
+		type: String,
 		maxlength: 1000,
 	},
-    duedate:{
-        type:Date,
-        default:Date.now(),
-    },
+	duedate: {
+		type: Date,
+		default: Date.now(),
+	},
 	category: {
 		type: String,
 		required: true,
 	},
 	priority: { type: Number, min: 1, max: 3 },
-	owner:{
-        type:Schema.Types.ObjectId,
-        ref:"User",
-    }
+	completed: { type: Boolean, default: false },
+	owner: {
+		type: Schema.Types.ObjectId,
+		ref: "User",
+	},
 });
 
 taskSchema.post("findOneAndDelete", async (task) => {

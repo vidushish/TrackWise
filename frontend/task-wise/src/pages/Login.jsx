@@ -46,11 +46,12 @@ export default function LoginPage() {
 				toast.success("Login Successful");
 				navigate("/");
 			} else {
-				toast.error(res_data.extraDetails);
+				toast.error(res_data.msg || "Login failed");
 			}
 			console.log(response);
 		} catch (error) {
 			console.log(error);
+			toast.error("Something went wrong. Please try again.");
 		}
 	};
 
