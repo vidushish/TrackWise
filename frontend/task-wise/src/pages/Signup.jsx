@@ -44,7 +44,7 @@ export default function Signup() {
 				toast.success("Signup Successful");
 				navigate("/");
 			}else{
-				toast.error(res_data.message);
+				toast.error(res_data.extraDetails);
 			}
 		} catch (err) {
 			console.log(err);
@@ -129,18 +129,6 @@ export default function Signup() {
 						>
 							Log In
 						</Link>
-					</div>
-
-					<div className="flex flex-col gap-2 mt-6">
-						<button className="w-full border-2 border-gray-00 py-2 rounded-md hover:bg-gray-600 hover:text-white">
-							<span
-								role="img"
-								aria-label="google"
-							>
-								🌐
-							</span>{" "}
-							Continue with Google
-						</button>
 					</div>
 				</div>
 			</div>

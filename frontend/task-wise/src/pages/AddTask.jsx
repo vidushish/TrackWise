@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
@@ -7,7 +7,9 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import TextField from "@mui/material/TextField";
 import { useNavigate } from "react-router-dom";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
 
 export default function AddTask() {
 	const [title, setTitle] = useState("");
@@ -15,8 +17,33 @@ export default function AddTask() {
 	const [dueDate, setDueDate] = useState("");
 	const [category, setCategory] = useState("");
 	const [priority, setPriority] = useState("");
+	const [tasks, setTasks] = useState([]);
+	const location = useLocation();
 
 	const navigate = useNavigate();
+
+	const fetchTasks = async () => {
+		try {
+			const token = localStorage.getItem("token");
+			const res = await axios.get("http://localhost:5174/api/data", {
+				headers: { Authorization: `Bearer ${token}` },
+			});
+			const allTasks = Array.isArray(res.data)
+				? res.data
+				: res.data.msg || [];
+			const incompleteTasks = allTasks.filter((t) => !t.completed);
+			const sortedTasks = incompleteTasks.sort(
+				(a, b) => b.priority - a.priority
+			);
+			setTasks(sortedTasks);
+		} catch (err) {
+			console.error("Failed to fetch tasks:", err);
+		}
+	};
+
+	useEffect(() => {
+		fetchTasks();
+	}, [location]);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();

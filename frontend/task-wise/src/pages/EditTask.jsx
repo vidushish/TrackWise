@@ -23,7 +23,7 @@ export default function EditTask() {
 		const fetchTask = async () => {
 			try {
 				const token = localStorage.getItem("token");
-				const res = await fetch(`http://localhost:5174/api/data/dashboard`, {
+				const res = await fetch(`http://localhost:5174/api/data`, {
 					headers: { Authorization: `Bearer ${token}` },
 				});
 				const data = await res.json();

@@ -9,10 +9,10 @@ const validateSignup = (req, res, next) => {
 		const email = req.body.email?.trim().toLowerCase();
 		const password = req.body.password?.trim();
 
-		if (!name || name.length < 3 || name.length > 255) {
+		if (!name || name.length < 2 || name.length > 255) {
 			const error = new Error("Invalid name.");
 			error.status = 400;
-			error.extraDetails = "Name must be 3-255 characters long.";
+			error.extraDetails = "Name must be 2-255 characters long.";
 			throw error;
 		}
 

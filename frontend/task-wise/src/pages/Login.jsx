@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../store/auth";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
 const URL = "http://localhost:5174/api/auth/login";
 
@@ -46,8 +46,12 @@ export default function LoginPage() {
 				toast.success("Login Successful");
 				navigate("/");
 			} else {
-				toast.error(res_data.msg || "Login failed");
+				const errorMessage =
+					res_data.message ||
+					res_data.extraDetails || "Invalid Credentials";
+				toast.error(errorMessage);
 			}
+
 			console.log(response);
 		} catch (error) {
 			console.log(error);
@@ -125,21 +129,6 @@ export default function LoginPage() {
 						>
 							Sign up
 						</Link>
-					</div>
-
-					<div className="flex flex-col gap-2 mt-6">
-						<button
-							type="submit"
-							className="w-full border-2 border-gray-00 py-2 rounded-md hover:bg-gray-600 hover:text-white"
-						>
-							<span
-								role="img"
-								aria-label="google"
-							>
-								🌐
-							</span>{" "}
-							Continue with Google
-						</button>
 					</div>
 				</div>
 			</div>

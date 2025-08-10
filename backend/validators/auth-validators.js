@@ -4,7 +4,7 @@ const signupSchema = z.object({
 	name: z
 		.string()
 		.trim()
-		.min(3, "Name must be at least 3 characters.")
+		.min(2, "Name must be at least 2 characters.")
 		.max(255, "Name must be under 255 characters."),
 
 	email: z
