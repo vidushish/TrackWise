@@ -54,7 +54,6 @@ export default function AddTask() {
 			category,
 			priority: Number(priority),
 		};
-		console.log("Submitted Task:", taskData);
 
 		try {
 			const token = localStorage.getItem("token");
@@ -70,7 +69,6 @@ export default function AddTask() {
 
 			if (!res.ok) throw new Error("Failed to add task");
 			const result = await res.json();
-			console.log("Task added successfully:", result);
 			toast.success("Task added successfully!");
 
 			setTitle("");

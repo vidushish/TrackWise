@@ -29,7 +29,6 @@ export default function Signup() {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		console.log(user);
 		try {
 			const response = await fetch(URL, {
 				method: "POST",
@@ -37,7 +36,6 @@ export default function Signup() {
 				body: JSON.stringify(user),
 			});
 			const res_data = await response.json();
-			console.log("Response from server", res_data);
 			if (response.ok) {
 				storeTokenInLS(res_data.token);
 				setUser({ name: "", email: "", password: "" });

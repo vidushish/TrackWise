@@ -15,7 +15,7 @@ export default function LoginPage() {
 	const { storeTokenInLS, isLoggedIn } = useAuth();
 	useEffect(() => {
 		if (isLoggedIn) {
-			navigate("/dashboard");
+			navigate("/");
 		}
 	}, [isLoggedIn]);
 	const navigate = useNavigate();
@@ -32,7 +32,6 @@ export default function LoginPage() {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		console.log(user);
 		try {
 			const response = await fetch(URL, {
 				method: "POST",
@@ -51,8 +50,6 @@ export default function LoginPage() {
 					res_data.extraDetails || "Invalid Credentials";
 				toast.error(errorMessage);
 			}
-
-			console.log(response);
 		} catch (error) {
 			console.log(error);
 			toast.error("Something went wrong. Please try again.");

@@ -4,22 +4,39 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import CardActionArea from "@mui/material/CardActionArea";
 
 export default function HomePage() {
-	const navigate = useNavigate();
+	const [columnCount, setColumnCount] = useState(3);
+
 	useEffect(() => {
 		AOS.init({
 			duration: 1000,
 			once: true,
 		});
+
+		// Responsive column count based on screen size
+		const updateColumns = () => {
+			if (window.innerWidth >= 1024) {
+				setColumnCount(3); // large
+			} else if (window.innerWidth >= 768) {
+				setColumnCount(2); // medium
+			} else {
+				setColumnCount(1); // small
+			}
+		};
+
+		updateColumns();
+		window.addEventListener("resize", updateColumns);
+		return () => window.removeEventListener("resize", updateColumns);
 	}, []);
+
 	return (
 		<>
+			{/* Hero Section */}
 			<div className="mt-[-1rem] grid grid-col-1 md:grid-cols-2 gap-50">
 				<div
 					data-aos="fade-up-right"
@@ -49,6 +66,8 @@ export default function HomePage() {
 					/>
 				</div>
 			</div>
+
+			{/* Features Section */}
 			<br />
 			<div className="text-center">
 				<h2
@@ -140,6 +159,7 @@ export default function HomePage() {
 				</div>
 			</div>
 
+			{/* Call to Action */}
 			<br />
 			<br />
 			<br />
@@ -177,6 +197,8 @@ export default function HomePage() {
 				<br />
 				<br />
 			</div>
+
+			{/* Reviews Section */}
 			<br />
 			<br />
 			<div
@@ -192,24 +214,177 @@ export default function HomePage() {
 					Loved for simplicity. Evolving every day.
 				</p>
 				<br />
-				{localStorage.getItem("token") ? (
-					<Button
-						sx={{
-							backgroundColor: "#873ccdff",
-							transition: "all 0.3s ease-in-out",
-							"&:hover": {
-								backgroundColor: "#6b22a2ff",
-								transform: "scale(1.05)",
+
+				<div className="bg-gradient-to-b from-purple-500 via-purple-200 to-purple-400 py-16 px-6">
+					<h2 className="text-center text-4xl font-bold text-white mb-12">
+						What Our Users Say
+					</h2>
+
+					{(() => {
+						const reviews = [
+							{
+								name: "Aarav Mehta",
+								role: "Startup Founder",
+								review: "TrackWise completely changed how I manage my work. The habit tracker keeps me consistent, and the analytics are eye-opening!",
+								rating: 5,
 							},
-						}}
-						variant="contained"
-					>
-						Add new Review
-					</Button>
-				) : (
-					navigate("/login")
-				)}
+							{
+								name: "Priya Kapoor",
+								role: "Content Creator",
+								review: "I love how simple yet powerful TrackWise is. Planning my week takes minutes now. The charts keep me motivated!",
+								rating: 4,
+							},
+							{
+								name: "Rahul Sharma",
+								role: "Software Developer",
+								review: "Initially, I wasn’t sure I needed a task tracker, but TrackWise has saved me hours every week. The streaks feature is addictive!",
+								rating: 5,
+							},
+							{
+								name: "Ananya Verma",
+								role: "Fitness Coach",
+								review: "The habit tracker is a game-changer for me and my clients. Tracking routines has never been easier.",
+								rating: 4,
+							},
+							{
+								name: "Kunal Singh",
+								role: "Student",
+								review: "TrackWise keeps me on top of my assignments and personal goals. The reminders and dashboard are spot-on.",
+								rating: 3,
+							},
+							{
+								name: "Meera Iyer",
+								role: "Project Manager",
+								review: "This is hands down the most intuitive productivity app I’ve used. The UI is clean, and it just works.",
+								rating: 5,
+							},
+							{
+								name: "Saanvi Gupta",
+								role: "Designer",
+								review: "The interface is beautiful and user-friendly. It’s exactly what I needed to stay on track.",
+								rating: 4,
+							},
+							{
+								name: "Rohan Das",
+								role: "Freelancer",
+								review: "The reminders are a lifesaver. I’ve never missed a deadline since I started using TrackWise.",
+								rating: 5,
+							},
+							{
+								name: "Ishaan Khanna",
+								role: "Entrepreneur",
+								review: "Finally, a productivity tool that keeps things simple without removing powerful features.",
+								rating: 4,
+							},
+							{
+								name: "Vikram Patel",
+								role: "Marketing Lead",
+								review: "From task tracking to analytics, this tool has boosted my team's productivity big time.",
+								rating: 5,
+							},
+							{
+								name: "Neha Joshi",
+								role: "Research Analyst",
+								review: "Super clean interface and powerful features. I use it daily without fail.",
+								rating: 4,
+							},
+							{
+								name: "Arjun Rao",
+								role: "Teacher",
+								review: "Helps me organize classes, projects, and personal life all in one place.",
+								rating: 4,
+							},
+						];
+
+						const renderStars = (count) =>
+							Array.from({ length: 5 }, (_, i) => (
+								<span
+									key={i}
+									className={
+										i < count
+											? "text-yellow-400"
+											: "text-gray-300"
+									}
+								>
+									★
+								</span>
+							));
+
+						const chunkSize = Math.ceil(
+							reviews.length / columnCount
+						);
+						const reviewChunks = Array.from(
+							{ length: columnCount },
+							(_, i) =>
+								reviews.slice(
+									i * chunkSize,
+									i * chunkSize + chunkSize
+								)
+						);
+
+						return (
+							<div
+								className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6`}
+							>
+								{reviewChunks.map((chunk, colIdx) => (
+									<div
+										key={colIdx}
+										className="relative h-[400px] overflow-hidden group"
+									>
+										<div className="flex flex-col animate-scroll-vertical space-y-6 group-hover:[animation-play-state:paused]">
+											{[...chunk, ...chunk].map(
+												(
+													{
+														name,
+														role,
+														review,
+														rating,
+													},
+													idx
+												) => (
+													<div
+														key={idx}
+														className="bg-purple-200 rounded-2xl p-6 shadow-lg text-gray-900 border border-purple-300 w-[90%] mx-auto transform transition-transform duration-300 group-hover:scale-105"
+													>
+														<div className="flex mb-4 text-lg">
+															{renderStars(
+																rating
+															)}
+														</div>
+														<p className="mb-4 text-gray-700">
+															{review}
+														</p>
+														<div>
+															<p className="font-semibold">
+																{name}
+															</p>
+															<p className="text-sm text-gray-500">
+																{role}
+															</p>
+														</div>
+													</div>
+												)
+											)}
+										</div>
+									</div>
+								))}
+							</div>
+						);
+					})()}
+				</div>
+
+				{/* Animation Style */}
+				<style>{`
+					@keyframes scrollVertical {
+						0% { transform: translateY(0); }
+						100% { transform: translateY(-50%); }
+					}
+					.animate-scroll-vertical {
+						animation: scrollVertical 30s linear infinite;
+					}
+				`}</style>
 			</div>
+
 			<br />
 			<br />
 			<br />

@@ -256,7 +256,7 @@ export default function Analytics() {
 					variant="contained"
 					onClick={() => navigate("/dashboard")}
 				>
-					Go to Dashboard
+				Go to Dashboard
 				</Button>
 			</div>
 

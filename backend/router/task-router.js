@@ -11,8 +11,8 @@ const {
 	getCompletedTasks,
 } = require("../controllers/task-controller");
 
-router.get("/", authMiddleware, getTasks); // GET /api/data
-router.get("/dashboard", authMiddleware, getTasks); // optional, if you want a separate endpoint
+router.get("/", authMiddleware, getTasks);
+router.get("/dashboard", authMiddleware, getTasks);
 router.post("/addtask", authMiddleware, addTask);
 router.put("/edit/:id", authMiddleware, editTask);
 router.delete("/delete/:id", authMiddleware, deleteTask);
