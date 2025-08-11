@@ -1,0 +1,7 @@
+[build]
+  base = "frontend/task-wise"
+  command = "npm run build"
+  publish = "frontend/task-wise/dist"
+
+[secrets_scan]
+  omit_paths = ["backend/*"]
