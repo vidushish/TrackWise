@@ -17,15 +17,13 @@ export default function HomePage() {
 			duration: 1000,
 			once: true,
 		});
-
-		// Responsive column count based on screen size
 		const updateColumns = () => {
 			if (window.innerWidth >= 1024) {
-				setColumnCount(3); // large
+				setColumnCount(3);
 			} else if (window.innerWidth >= 768) {
-				setColumnCount(2); // medium
+				setColumnCount(2);
 			} else {
-				setColumnCount(1); // small
+				setColumnCount(1);
 			}
 		};
 

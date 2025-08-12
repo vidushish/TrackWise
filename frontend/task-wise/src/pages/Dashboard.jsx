@@ -10,6 +10,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+const baseURL = import.meta.env.VITE_API_BASE_URL;
 
 export default function Dashboard() {
 	const [tasks, setTasks] = useState([]);
@@ -19,7 +20,7 @@ export default function Dashboard() {
 		const fetchTasks = async () => {
 			try {
 				const token = localStorage.getItem("token");
-				const res = await axios.get("http://localhost:5174/api/data", {
+				const res = await axios.get(`${baseURL}/api/data`, {
 					headers: { Authorization: `Bearer ${token}` },
 				});
 
@@ -43,7 +44,7 @@ export default function Dashboard() {
 	const handleDone = async (id) => {
 		try {
 			const token = localStorage.getItem("token");
-			const URL = `http://localhost:5174/api/data/done/${id}`;
+			const URL = `${baseURL}/api/data/done/${id}`;
 			const res = await axios.put(
 				URL,
 				{},
@@ -66,7 +67,7 @@ export default function Dashboard() {
 	const handleDelete = async (id) => {
 		try {
 			const token = localStorage.getItem("token");
-			const URL = `http://localhost:5174/api/data/delete/${id}`;
+			const URL = `${baseURL}/api/data/delete/${id}`;
 			const res = await axios.delete(URL, {
 				headers: {
 					Authorization: `Bearer ${token}`,

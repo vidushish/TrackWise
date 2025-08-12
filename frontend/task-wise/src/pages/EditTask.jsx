@@ -8,6 +8,7 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import TextField from "@mui/material/TextField";
 import { toast } from "react-toastify";
+const baseURL = import.meta.env.VITE_API_BASE_URL;
 
 export default function EditTask() {
 	const [title, setTitle] = useState("");
@@ -23,7 +24,7 @@ export default function EditTask() {
 		const fetchTask = async () => {
 			try {
 				const token = localStorage.getItem("token");
-				const res = await fetch(`http://localhost:5174/api/data`, {
+				const res = await fetch(`${baseURL}/api/data`, {
 					headers: { Authorization: `Bearer ${token}` },
 				});
 				const data = await res.json();
@@ -56,7 +57,7 @@ export default function EditTask() {
 
 		try {
 			const token = localStorage.getItem("token");
-			const res = await fetch(`http://localhost:5174/api/data/edit/${id}`, {
+			const res = await fetch(`${baseURL}/api/data/edit/${id}`, {
 				method: "PUT",
 				headers: {
 					"Content-Type": "application/json",

@@ -19,13 +19,14 @@ export default function AddTask() {
 	const [priority, setPriority] = useState("");
 	const [tasks, setTasks] = useState([]);
 	const location = useLocation();
+	const baseURL = import.meta.env.VITE_API_BASE_URL;
 
 	const navigate = useNavigate();
 
 	const fetchTasks = async () => {
 		try {
 			const token = localStorage.getItem("token");
-			const res = await axios.get("http://localhost:5174/api/data", {
+			const res = await axios.get(`${baseURL}/api/data`, {
 				headers: { Authorization: `Bearer ${token}` },
 			});
 			const allTasks = Array.isArray(res.data)
@@ -57,7 +58,7 @@ export default function AddTask() {
 
 		try {
 			const token = localStorage.getItem("token");
-			const URL = "http://localhost:5174/api/data/addtask";
+			const URL = `${baseURL}/api/data/addtask`;
 			const res = await fetch(URL, {
 				method: "POST",
 				headers: {

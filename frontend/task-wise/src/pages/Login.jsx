@@ -3,9 +3,9 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../store/auth";
 import { toast } from "react-toastify";
+const baseURL = import.meta.env.VITE_API_BASE_URL;
 
-const URL = "http://localhost:5174/api/auth/login";
-
+const URL = `${baseURL}/api/auth/login`;
 export default function LoginPage() {
 	const [user, setUser] = useState({
 		email: "",

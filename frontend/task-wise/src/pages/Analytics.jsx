@@ -16,6 +16,7 @@ import {
 } from "chart.js";
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
+const baseURL = import.meta.env.VITE_API_BASE_URL;
 
 ChartJS.register(
 	CategoryScale,
@@ -39,7 +40,7 @@ export default function Analytics() {
 		const fetchData = async () => {
 			try {
 				const completedRes = await axios.get(
-					"http://localhost:5174/api/data/completed-tasks",
+					`${baseURL}/api/data/completed-tasks`,
 					{
 						headers: { Authorization: `Bearer ${token}` },
 					}
@@ -47,7 +48,7 @@ export default function Analytics() {
 				const completedTasks = completedRes.data || [];
 				setCompletedCount(completedTasks.length);
 				const allRes = await axios.get(
-					"http://localhost:5174/api/data",
+					`${baseURL}/api/data`,
 					{
 						headers: { Authorization: `Bearer ${token}` },
 					}
