@@ -59,7 +59,7 @@ export default function HomePage() {
 					<img
 						data-aos="fade-up-left"
 						className="h-[40rem] mt-[-3rem]"
-						src="./public/images/homepage.webp"
+						src="/images/homepage.webp"
 						alt="HomePage"
 					/>
 				</div>
