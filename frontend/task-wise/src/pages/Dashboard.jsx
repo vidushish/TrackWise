@@ -14,6 +14,7 @@ const baseURL = import.meta.env.VITE_API_BASE_URL;
 
 export default function Dashboard() {
 	const [tasks, setTasks] = useState([]);
+	const [loading, setLoading] = useState(true);
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -36,6 +37,8 @@ export default function Dashboard() {
 				setTasks(sortedTasks);
 			} catch (err) {
 				console.error("Failed to fetch tasks:", err);
+			} finally {
+				setLoading(false);
 			}
 		};
 		fetchTasks();
@@ -97,7 +100,14 @@ export default function Dashboard() {
 			<br />
 			<br />
 			<div className="grid gap-10 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 px-4 items-stretch">
-				{tasks.length === 0 ? (
+				{loading ? (
+					<div
+						className="col-span-full text-center text-lg text-gray-500"
+						data-aos="fade-up"
+					>
+						Loading tasks...
+					</div>
+				) : tasks.length === 0 ? (
 					<div
 						className="col-span-full text-center text-lg text-gray-500"
 						data-aos="fade-up"
